@@ -1,47 +1,24 @@
-# Pavlo — Dark‑Fantasy Phonk / VHS Portfolio
+# Pavlo — Dark‑Fantasy Phonk / VHS Portfolio (v2)
 
-Single-file React portfolio with CRT/VHS vibe, starfield, glitch micro‑interactions, scroll‑reveal, and **real demo embedding**.
+Single‑file React site with Motion One micro‑interactions, Lottie accents, a scroll‑scrub gallery, CRT grain, spotlight cursor, 3D tilt cards, and a keyboard command palette.
 
 ## Quick start
-1. Open `index.html` in a browser.
-2. Edit projects in the `CASES` array (near the top of the `<script type="text/babel">`).  
-   - Add `liveDemo` with an **https** URL; if the target site allows iframes, it will render in a modal.
-   - Add `repo` for a code link.
-3. Put a `phonk.mp3` next to `index.html` to enable music (optional).
+1. Replace your repo’s `index.html` with this version.
+2. Commit to `main` and wait ~1–2 minutes for GitHub Pages.
+3. **Formspree:** edit the form `action` to your Formspree ID.
+4. **Telegram:** set `TELEGRAM_USERNAME`; optionally set `TELEGRAM_WEBHOOK` to an n8n/Worker endpoint.
+5. Add `phonk.mp3` next to `index.html` to enable the music toggle (optional).
 
-## Contact (Formspree)
-- Replace the action in the form with your Formspree ID:  
-  `https://formspree.io/f/YOUR_FORMSPREE_ID` → `https://formspree.io/f/abcdxyz`
-- Works without any backend.
+## Scroll gallery
+- Update each frame’s `<iframe>` `src` with your live demo URLs.
+- If a site blocks iframes, users still get a “Open demo” button in the case modal.
 
-## Contact (Telegram)
-Two safe options (avoid exposing your bot token in client code):
+## Lottie
+- Replace placeholder URLs in `LOTTIES` array with small, looped JSON animations from LottieFiles.
+- Keep files lightweight (<150KB each) for best perf.
 
-**A) Open chat directly**  
-Set at the top of the script:
-```js
-const TELEGRAM_USERNAME = "your_telegram_username";
-```
-This makes the “Open Telegram Chat” button link to `https://t.me/YOUR_USERNAME`.
+## Command palette
+- Press **⌘K / Ctrl‑K** to jump between sections or open external links.
 
-**B) Forward form to Telegram via a secure webhook**  
-Use an **n8n Webhook** (recommended) or a **Cloudflare Worker** to receive the form data and call Telegram Bot API server‑side.  
-Set:
-```js
-const TELEGRAM_WEBHOOK = "https://<your-n8n-or-worker>/webhook/telegram-contact";
-```
-
-### Example: Cloudflare Worker
-See `telegram-worker.js` with env vars:
-- `BOT_TOKEN`
-- `CHAT_ID`  (your user id or a group/channel id)
-
-Deploy and set your worker URL as `TELEGRAM_WEBHOOK` in `index.html`.
-
-## Deployment
-- GitHub Pages, Netlify, Vercel: just upload this folder.
-- Everything is client‑side (React via CDN).
-
-## Notes
-- Some sites use `X-Frame-Options`/`CSP` to block iframes; in that case, your modal shows a button to open the demo in a new tab.
-- Keep animations tasteful; heavy effects can hurt low-end devices.
+## Performance
+- 60fps transforms, lazy iframes, reduced‑motion friendly. All client‑side via CDNs.
