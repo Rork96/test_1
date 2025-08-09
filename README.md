@@ -1,12 +1,17 @@
-# Pavlo — RN Web Portfolio (v5)
+# Next.js Dark‑Fantasy Phonk/VHS Portfolio
 
-React Native Web single‑file app (no bundler) + local demo pages that work on GitHub Pages.
+- Next.js 14 App Router, static export (`output: 'export'`) so it runs on GitHub Pages.
+- Motion One for micro-animations, Lottie accents, local demo pages.
 
-How to deploy
-1) Upload everything in this ZIP to your repo root.
-2) Settings → Pages → Deploy from a branch → main → /(root). Wait ~1–2 minutes.
+## Local dev
+npm i
+npm run dev
 
-Customize
-- index.html → config at the top (SOCIALS, FORMSPREE_ID)
-- CASES[].demo points to local pages under /demos; you can swap to external URLs later.
-- Add phonk.mp3 next to index.html to enable the music toggle.
+## Export + deploy
+- If deploying to `username.github.io/REPO_NAME`, edit `next.config.mjs` and set `REPO_NAME`.
+  Or set a repo secret/var: `NEXT_PUBLIC_BASE_PATH=/REPO_NAME`
+- Push to `main`. Pages Source: **GitHub Actions**. Workflow builds to `out/` and deploys.
+
+## Customize
+- Edit `CASES` in `app/page.tsx` for titles/tags and `liveDemo`/`repo` links.
+- Drop `public/phonk.mp3` to enable the music toggle.
