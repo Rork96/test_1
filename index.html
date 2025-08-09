@@ -2,315 +2,355 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Pavlo — Dark Fantasy Phonk / VHS (React Native Web)</title>
-  <meta name="description" content="Dark‑fantasy phonk/VHS portfolio built with React Native Web. Demos, cases, contact, and tasteful animations—all static for GitHub Pages." />
-  <link rel="icon" href="favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pavlo — Dark Fantasy Phonk / VHS • Ultimate</title>
+  <meta name="description" content="Dark-fantasy VHS portfolio by Pavlo: AI agents, automations, Telegram bots, Raspberry Pi DevOps, and finance/health apps. Best-of features, buttery animations, and live demos." />
+  <link rel="icon" href="assets/favicon.ico" />
   <style>
-    html,body{height:100%} body{margin:0;background:radial-gradient(1200px 800px at 10% 10%, #0b0714 0%, #05030a 50%) fixed;overflow-x:hidden;color:#F2F2F7;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Inter,Roboto,Arial}
+    :root{
+      --bg:#05030a; --surface:rgba(255,255,255,.06); --border:rgba(255,255,255,.16);
+      --fg:#F2F2F7; --muted:#bfc2d1; --accent:#b700ff; --accent2:#00e5ff;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{ margin:0; color:var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
+          background: radial-gradient(1200px 800px at 8% 12%, #0b0714 0%, var(--bg) 55%) fixed; overflow-x:hidden; }
     a{color:inherit}
-    #starfield{position:fixed;inset:0;z-index:-1}
-    .toast{position:fixed;right:16px;bottom:16px;background:rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.18);padding:10px 14px;border-radius:10px;display:none;z-index:2000}
-    .toast.show{display:block;animation:fade 2.6s ease forwards}
-    @keyframes fade{0%{opacity:0;transform:translateY(6px)}10%{opacity:1;transform:none}90%{opacity:1}100%{opacity:0}}
+    .crt::before{ content:""; position:fixed; inset:0; pointer-events:none; z-index:30;
+      background:repeating-linear-gradient(transparent 0 2px, rgba(255,255,255,.03) 2px 3px);
+      mix-blend-mode:overlay; }
+    .grain::after{ content:""; position:fixed; inset:-100px; pointer-events:none; z-index:31;
+      background-image:url('assets/grain.png'); opacity:.13; filter:contrast(180%) brightness(120%); }
+    .topbar{ position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:10px; padding:10px 18px;
+      background: rgba(5,3,10,.7); border-bottom:1px solid var(--border); backdrop-filter: blur(8px) saturate(120%); }
+    .pill{font:600 12px/1 ui-sans-serif; padding:.45rem .7rem; border-radius:999px; border:1px solid var(--border); background:var(--surface)}
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:11px 16px; border-radius:12px; text-decoration:none; border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(183,0,255,.18), rgba(183,0,255,.06)); transition:transform .15s ease, box-shadow .15s ease; cursor:pointer; }
+    .btn:hover{ transform: translateY(-2px) scale(1.01); box-shadow: 0 6px 22px rgba(183,0,255,.25); }
+    .btn.secondary{ background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); }
+    .ghost{ background:none; border-color:transparent; }
+    header{ max-width: 1200px; margin: 0 auto; padding: 36px 20px 0; }
+    .hero{ display:grid; grid-template-columns:1.2fr .8fr; gap:20px; align-items:center; margin-top:24px; }
+    @media (max-width: 1000px){ .hero{ grid-template-columns:1fr; } }
+    .glass{ background: var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow: 0 10px 40px rgba(0,0,0,.55), inset 0 1px rgba(255,255,255,.08); backdrop-filter: blur(12px) saturate(120%); }
+    .pad{ padding:18px; }
+    .title{ font-size: clamp(36px, 6vw, 74px); line-height:1.02; letter-spacing:.4px; margin:0; text-shadow: 0 0 8px rgba(183,0,255,.6), 0 0 18px rgba(0,229,255,.4) }
+    .focus-wrap{ position:relative; display:inline-block; }
+    .true-focus{ position:absolute; inset:-6px -10px; pointer-events:none; filter:blur(18px); opacity:.55;
+       background: conic-gradient(from 0deg at 50% 50%, rgba(255,0,102,.55), rgba(0,229,255,.55), rgba(255,0,102,.55)); border-radius:14px; animation: spin 22s linear infinite; }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+    .subtitle{ color:var(--muted); margin:10px 0 6px; font-size: clamp(14px, 2.2vw, 18px); }
+    .stack{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+    .spotlight{ position:fixed; inset:0; pointer-events:none; z-index:10; background:
+      radial-gradient(130px 130px at var(--mx, -10px) var(--my, -10px), rgba(255,255,255,.08), transparent 60%); }
+    section{ max-width:1200px; margin: 0 auto; padding: 30px 20px; }
+    .section-title{ font:700 22px/1 ui-sans-serif; letter-spacing:.6px; margin: 12px 0 16px; }
+    .muted{ color:var(--muted) }
+    .kgrid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; } @media (max-width: 900px){ .kgrid{ grid-template-columns:1fr; } }
+    .card{ border-radius:14px; border:1px solid var(--border); background: var(--surface); padding:18px; }
+    .gallery-wrap{ position:relative; height: 520vh; }
+    .gallery{ position:sticky; top:60px; height: calc(100vh - 80px); overflow:hidden; border-radius:16px; border:1px solid var(--border); }
+    .frame{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(0.98) translateY(24px);
+      transition: opacity .6s ease, transform .6s ease; background:linear-gradient(180deg, rgba(10,6,16,.95), rgba(5,3,10,.98)); }
+    .frame.visible{ opacity:1; transform:none; }
+    .frame .inner{ display:grid; grid-template-columns: 1fr 1fr; gap:18px; width:min(1100px, 92vw); }
+    @media (max-width: 900px){ .frame .inner{ grid-template-columns:1fr; } }
+    .frame iframe{ width:100%; height: 420px; border-radius:12px; border:1px solid var(--border); background:#000; }
+    .cases{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+    @media (max-width: 1100px){ .cases{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 740px){ .cases{ grid-template-columns: 1fr; } }
+    .case{ position:relative; border-radius:16px; border:1px solid var(--border); background: var(--surface); overflow:hidden; transform-style:preserve-3d; perspective:800px; }
+    .case .thumb{ aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; font-size:42px;
+      background: radial-gradient(520px 240px at 10% 10%, rgba(183,0,255,.25), transparent 60%); }
+    .case .body{ padding:14px; }
+    .tag{ font-size:11px; padding:.2rem .5rem; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.05); color:var(--muted) }
+    .case .actions{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
+    .case .actions .btn{ padding:8px 12px; border-radius:10px; font-size:13px }
+    .modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:60 }
+    .modal.open{ display:flex }
+    .backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.65); backdrop-filter: blur(4px) }
+    .dialog{ position:relative; width:min(1000px,92vw); max-height:88vh; overflow:auto; padding:18px; border-radius:16px;
+      background: linear-gradient(180deg, rgba(20,12,28,.92), rgba(10,6,16,.97)); border:1px solid var(--border) }
+    footer{ margin:40px 0 80px; }
+    .small{ font-size:12px; color:var(--muted) }
+    .toast{ position:fixed; right:16px; bottom:16px; background: rgba(0,0,0,.72); border:1px solid var(--border);
+      padding:10px 14px; border-radius:10px; display:none; z-index:1000 }
+    .toast.show{ display:block; animation: fade 2.5s ease forwards }
+    @keyframes fade{ 0%{opacity:0; transform: translateY(6px);} 10%{opacity:1; transform:none;} 90%{opacity:1;} 100%{opacity:0;} }
   </style>
-  <!-- React / ReactDOM / RN Web UMD so we don't need a bundler -->
+</head>
+<body class="crt grain">
+  <div class="spotlight" aria-hidden="true"></div>
+  <canvas id="starfield" aria-hidden="true" style="position:fixed; inset:0; z-index:-1;"></canvas>
+
+  <nav class="topbar">
+    <span class="pill">Pavlo — AI Integrations & Apps</span>
+    <a class="btn" href="#cases">Cases</a>
+    <a class="btn secondary" href="#about">About</a>
+    <a class="btn secondary" href="#contact">Contact</a>
+    <button id="paletteBtn" class="btn secondary" title="Command Palette (⌘K / Ctrl-K)">⌘K</button>
+    <button id="audioToggle" class="btn secondary">Phonk ♫</button>
+    <button id="themeToggle" class="btn secondary">VHS / Clean</button>
+  </nav>
+
+  <header>
+    <div class="hero">
+      <div class="glass pad">
+        <div class="focus-wrap"><div class="true-focus"></div><h1 class="title">Dark-Fantasy Phonk / VHS Portfolio</h1></div>
+        <p class="subtitle">I design and ship AI automations and apps: n8n/Zapier agents, Telegram bots, finance & health products, and Raspberry Pi DevOps. I prefer fast MVPs that actually work.</p>
+        <div class="stack"><span class="pill">n8n</span><span class="pill">Zapier</span><span class="pill">OpenAI</span><span class="pill">Supabase</span><span class="pill">FastAPI</span><span class="pill">iOS HealthKit</span><span class="pill">Raspberry Pi</span></div>
+        <div style="display:flex; gap:10px; margin-top:14px;"><a class="btn" href="#gallery">See Demos</a><a class="btn secondary" href="https://www.instagram.com/rork_paul" target="_blank" rel="noreferrer">Instagram</a></div>
+      </div>
+      <div class="glass pad">
+        <h2 class="section-title">What I Do</h2>
+        <div class="kgrid">
+          <div class="card"><strong>AI Agents & Automations</strong><p class="muted">n8n super-agents, structured memory, semantic search, Slack/Telegram interfaces, and robust logging.</p></div>
+          <div class="card"><strong>Finance & Health Apps</strong><p class="muted">WealthifAI & HealthifAI UIs, receipt OCR, budgeting, goals, HealthKit insights, and gamified streaks.</p></div>
+          <div class="card"><strong>Backend & DevOps</strong><p class="muted">FastAPI/Flask on Supabase/Postgres, Docker-first deployments, Raspberry Pi monitoring (SecurityGuard_AI).</p></div>
+          <div class="card"><strong>Creative Media & Bots</strong><p class="muted">Telegram bots for status, content sorting to Notion, Insta/TikTok pipelines, and dark-fantasy visuals.</p></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="gallery">
+    <h2 class="section-title">Lore Gallery — Scroll to Explore</h2>
+    <div class="gallery-wrap">
+      <div class="gallery glass">
+        <div class="frame visible" data-i="0"><div class="inner"><div><h3 class="neon">WealthifAI — Finance OS</h3><p class="muted">Swipeable iOS cards + analytics.</p><div id="lottie1" style="height:220px"></div></div><div><iframe loading="lazy" src="demos/wealthifai.html" title="WealthifAI Demo"></iframe></div></div></div>
+        <div class="frame" data-i="1"><div class="inner"><div><h3 class="neon">SecurityGuard_AI — RPi Monitor</h3><p class="muted">Docker + telemetry.</p><div id="lottie2" style="height:220px"></div></div><div><iframe loading="lazy" src="demos/securityguard.html" title="SecurityGuard Demo"></iframe></div></div></div>
+        <div class="frame" data-i="2"><div class="inner"><div><h3 class="neon">Reflacto — Reflections</h3><p class="muted">Prompts & breathwork.</p><div id="lottie3" style="height:220px"></div></div><div><iframe loading="lazy" src="demos/reflacto.html" title="Reflacto Demo"></iframe></div></div></div>
+        <div class="frame" data-i="3"><div class="inner"><div><h3 class="neon">HealthifAI — Health Insights</h3><p class="muted">Widgets & GPT advice.</p><div id="lottie4" style="height:220px"></div></div><div><iframe loading="lazy" src="demos/healthifai.html" title="HealthifAI Demo"></iframe></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases"><h2 class="section-title">Cases</h2><div id="casesGrid" class="cases"></div></section>
+
+  <section id="about"><h2 class="section-title">About</h2><div class="card"><p class="muted">I'm Pavlo, a detail-oriented builder who turns ideas into working software fast. I care about reliability, speed, and clean UX (even when the vibes are VHS).</p><ul class="muted"><li>Raspberry Pi 5 homelab with Docker, n8n, Tailscale, monitoring.</li><li>Voice bot for Tim Hortons: menu knowledge, sizes, promos, upsell logic.</li><li>WealthifAI: finance OS with OCR, analytics, reminders, and goals.</li><li>Reflacto: reflections, breathwork timers, AI daily reports via Shortcuts.</li><li>SecurityGuard_AI: Telegram alerts for CPU temp, RAM, disk, Docker containers.</li></ul></div></section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="kgrid">
+      <div class="card">
+        <form class="contact" id="contactForm" method="POST" action="https://formspree.io/f/YOUR_FORMSPREE_ID">
+          <input name="name" placeholder="Your name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <textarea name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn" type="submit">Send via Formspree</button>
+            <a id="tgChat" class="btn secondary" target="_blank" rel="noreferrer">Open Telegram Chat</a>
+          </div>
+          <div class="small">Email: <a href="mailto:pavlo@wealthifai.app">pavlo@wealthifai.app</a> · Telegram: <a href="https://t.me/R_O_R_K" target="_blank">@R_O_R_K</a> · Instagram: <a href="https://instagram.com/rork_paul" target="_blank">@rork_paul</a> · LinkedIn: <a href="https://linkedin.com/in/rork" target="_blank">/in/rork</a> · Upwork: <a href="https://www.upwork.com/freelancers/rork" target="_blank">Hire me</a></div>
+        </form>
+      </div>
+      <div class="card"><strong>Telegram Hook (optional)</strong><p class="muted">Ping a secure webhook (n8n/Cloudflare Worker) that relays the message to your Telegram bot without exposing your token in the browser.</p><code class="small">const TELEGRAM_WEBHOOK = "https://your-worker-or-n8n-webhook.example.com";</code></div>
+    </div>
+  </section>
+
+  <footer><div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap"><span class="small">© <span id="year"></span> Pavlo Tsyhanash — Built with React + Motion One · Dark-Fantasy Phonk / VHS</span><div style="display:flex; gap:8px;"><a class="btn secondary" href="#top">Top</a><a class="btn secondary" href="mailto:pavlo@wealthifai.app">Email</a></div></div></footer>
+
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-  <script crossorigin src="https://unpkg.com/react-native-web/dist/index.umd.js"></script>
   <script crossorigin src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-  <!-- Lottie (optional accents in gallery) -->
-  <script crossorigin src="https://unpkg.com/lottie-web/build/player/lottie_light.min.js"></script>
-</head>
-<body>
-  <canvas id="starfield" aria-hidden="true"></canvas>
-  <div id="root"></div>
-  <div id="toast" class="toast"></div>
+  <script src="https://unpkg.com/motion/dist/motion.min.js"></script>
+  <script src="https://unpkg.com/lottie-web/build/player/lottie_light.min.js"></script>
 
   <script type="text/babel">
-    const {
-      AppRegistry, View, Text, ScrollView, Pressable, TextInput, Image
-    } = ReactNative;
-
-    // ====== CONFIG (edit these) ======
-    const SOCIALS = {
-      telegram: "R_O_R_K",
-      email: "pavlo@wealthifai.app",
-      instagram: "https://instagram.com/rork_paul",
-      linkedin: "https://linkedin.com/in/rork",
-      upwork: "https://www.upwork.com/freelancers/rork"
-    };
-    const FORMSPREE_ID = "YOUR_FORMSPREE_ID"; // replace with your Formspree form id
+    const TELEGRAM_USERNAME = "R_O_R_K";
+    const TELEGRAM_WEBHOOK = "";
+    const LOTTIES = [
+      "https://assets1.lottiefiles.com/packages/lf20_touohxv0.json",
+      "https://assets6.lottiefiles.com/packages/lf20_y9fdrb3j.json",
+      "https://assets3.lottiefiles.com/packages/lf20_1pxqjqps.json",
+      "https://assets9.lottiefiles.com/packages/lf20_szrxtwmm.json"
+    ];
     const CASES = [
-      { id:"wealthifai", title:"WealthifAI — Finance OS", desc:"AI-powered finance assistant with receipt OCR, reminders, goals, and insights.", tags:["OpenAI","OCR","Finance"], demo:"demos/wealthifai.html", repo:"" },
-      { id:"securityguard", title:"SecurityGuard_AI — Raspberry Pi Monitor", desc:"CPU temp, RAM, disk, Docker status; Telegram alerts and JSON endpoint.", tags:["Raspberry Pi","Docker","Telegram"], demo:"demos/securityguard.html", repo:"" },
-      { id:"reflacto", title:"Reflacto — Reflection & Breathwork", desc:"Daily prompts, Buteyko timers, Notion export, and trends.", tags:["Notion","Shortcuts","AI"], demo:"demos/reflacto.html", repo:"" },
-      { id:"healthifai", title:"HealthifAI — iOS Health Insights", desc:"HealthKit analysis, GPT post‑workout summaries, custom widgets.", tags:["iOS","HealthKit"], demo:"demos/healthifai.html", repo:"" },
-      { id:"goggins", title:"Goggins Kitchen", desc:"AI culinary guide for athletes with personalized macros.", tags:["AI","Nutrition"], demo:"demos/goggins.html", repo:"" },
-      { id:"tamagotchi", title:"Fitness Tamagotchi", desc:"Gamified health based on real‑world actions.", tags:["Gamification","Health"], demo:"demos/tamagotchi.html", repo:"" },
-    ];
-    const GALLERY = [
-      { id:"gal1", title:"WealthifAI demo", lottie:"https://assets9.lottiefiles.com/packages/lf20_szrxtwmm.json" },
-      { id:"gal2", title:"SecurityGuard status", lottie:"https://assets6.lottiefiles.com/packages/lf20_y9fdrb3j.json" },
-      { id:"gal3", title:"Reflacto mood flow", lottie:"https://assets3.lottiefiles.com/packages/lf20_1pxqjqps.json" },
-      { id:"gal4", title:"HealthifAI activity ring", lottie:"https://assets1.lottiefiles.com/packages/lf20_touohxv0.json" },
+      { id:"wealthifai", title:"WealthifAI — Finance OS", blurb:"Smart budgeting, receipt OCR, bill reminders, and gamified goals. iOS-like card UI with swipeable analytics and AI tips.", tags:["OpenAI","Supabase","Flask/FastAPI","iOS UI"], impact:"Reduced manual budgeting by 70% in tests.", stack:"Python (FastAPI), Supabase/Postgres, OCR, OpenAI", liveDemo:"demos/wealthifai.html", repo:"" },
+      { id:"securityguard_ai", title:"SecurityGuard_AI — Raspberry Pi 5 Monitor", blurb:"Reports CPU temp, RAM, disk, Docker, service health. Sends Telegram alerts and exposes JSON endpoint.", tags:["Raspberry Pi","Docker","n8n","Telegram"], impact:"Real-time safety for homelab; quick root-cause via one message.", stack:"Python, cron, n8n Webhook, Telegram Bot API", liveDemo:"demos/securityguard.html", repo:"" },
+      { id:"reflacto", title:"Reflacto — AI Reflection & Breathwork", blurb:"Daily prompts, Buteyko mode with timers, Notion export, and trend analytics.", tags:["Shortcuts","Telegram","Notion","n8n"], impact:"Higher adherence to daily reflection.", stack:"Apple Shortcuts, n8n, Notion API, Telegram", liveDemo:"demos/reflacto.html", repo:"" },
+      { id:"healthifai", title:"HealthifAI — iOS Health Insights", blurb:"HealthKit queries (distance, HR, calories), GPT analysis after each activity, custom widgets.", tags:["iOS","HealthKit","Swift"], impact:"Actionable post-workout insights.", stack:"Swift, HKStatisticsQuery/HKSampleQuery, Widgets", liveDemo:"demos/healthifai.html", repo:"" },
+      { id:"goggins", title:"Goggins Kitchen", blurb:"AI-powered culinary book for athletes with personalized recipes.", tags:["AI","Nutrition"], impact:"Faster healthy meal planning.", stack:"LLM prompts, Notion", liveDemo:"demos/goggins.html", repo:"" },
+      { id:"tamagotchi", title:"Fitness Tamagotchi", blurb:"Gamified health system tied to real-world actions and progress.", tags:["Gamification","Health"], impact:"Habit building via playful loops.", stack:"iOS/Shortcuts + LLM", liveDemo:"demos/tamagotchi.html", repo:"" },
     ];
 
-    // ====== UTIL ======
-    const styles = StyleSheet.create({
-      container:{paddingTop:56,paddingHorizontal:16,maxWidth:1200,alignSelf:'center',width:'100%'},
-      nav:{position:'sticky',top:0,zIndex:50,backgroundColor:'rgba(5,3,10,.7)',backdropFilter:'blur(8px)',borderBottomWidth:1,borderColor:'rgba(255,255,255,.12)'},
-      navRow:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',padding:12},
-      navLinks:{flexDirection:'row',gap:8},
-      chip:{borderWidth:1,borderColor:'rgba(255,255,255,.2)',borderRadius:999,paddingVertical:6,paddingHorizontal:10},
-      heroRow:{flexDirection:'row',gap:16,flexWrap:'wrap'},
-      panel:{flexGrow:1,flexBasis:480,backgroundColor:'rgba(255,255,255,.06)',borderWidth:1,borderColor:'rgba(255,255,255,.16)',borderRadius:14,padding:16},
-      title:{fontSize:42,fontWeight:'800',textShadowColor:'rgba(183,0,255,.6)',textShadowOffset:{width:0,height:0},textShadowRadius:12},
-      subtitle:{color:'#bfc2d1',marginTop:6},
-      tagsRow:{flexDirection:'row',flexWrap:'wrap',gap:8,marginTop:8},
-      tag:{borderWidth:1,borderColor:'rgba(255,255,255,.16)',borderRadius:999,paddingVertical:4,paddingHorizontal:10,color:'#bfc2d1',fontSize:12},
-      btnRow:{flexDirection:'row',gap:10,marginTop:12,flexWrap:'wrap'},
-      btn:{borderWidth:1,borderColor:'rgba(255,255,255,.18)',borderRadius:12,paddingVertical:10,paddingHorizontal:16,backgroundColor:'rgba(183,0,255,.12)'},
-      btnSecondary:{borderWidth:1,borderColor:'rgba(255,255,255,.18)',borderRadius:12,paddingVertical:10,paddingHorizontal:16,backgroundColor:'rgba(255,255,255,.08)'},
-      h2:{fontSize:22,fontWeight:'700',marginVertical:12},
-      galleryWrap:{height:'70vh',borderWidth:1,borderColor:'rgba(255,255,255,.16)',borderRadius:16,overflow:'hidden',backgroundColor:'rgba(10,6,16,.95)'},
-      galleryItem:{height:'70vh',alignItems:'center',justifyContent:'center'},
-      casesGrid:{flexDirection:'row',flexWrap:'wrap',gap:16},
-      card:{width:'calc(33.333% - 10px)',minWidth:260,flexGrow:1,borderWidth:1,borderColor:'rgba(255,255,255,.15)',borderRadius:16,overflow:'hidden',backgroundColor:'rgba(255,255,255,.06)'},
-      thumb:{height:140,alignItems:'center',justifyContent:'center',backgroundColor:'rgba(183,0,255,.12)'},
-      body:{padding:12},
-      small:{fontSize:12,color:'#bfc2d1'},
-      contactRow:{flexDirection:'row',gap:16,flexWrap:'wrap'},
-      input:{borderWidth:1,borderColor:'rgba(255,255,255,.16)',borderRadius:10,paddingVertical:10,paddingHorizontal:12,marginBottom:8,color:'#F2F2F7',backgroundColor:'rgba(255,255,255,.06)'},
-      modalWrap:{position:'fixed',inset:'0',alignItems:'center',justifyContent:'center'},
-      modalCard:{width:'min(1000px,92vw)',maxHeight:'88vh',overflow:'auto',padding:16,borderRadius:16,backgroundColor:'rgba(20,12,28,.95)',borderWidth:1,borderColor:'rgba(255,255,255,.16)'},
-      footer:{marginVertical:40}
-    });
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
 
-    function toast(msg){
-      const el = document.getElementById('toast');
-      el.textContent = msg; el.classList.add('show');
-      setTimeout(()=> el.classList.remove('show'), 2600);
-    }
-
-    // Starfield background
     (function starfield(){
-      const canvas=document.getElementById('starfield'); const c=canvas.getContext('2d'); let w,h,stars; const count=120;
-      const init=()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;stars=new Array(count).fill(0).map(()=>({x:Math.random()*w,y:Math.random()*h,z:Math.random()*1+0.2,s:Math.random()*1.6+0.4}))};
-      const step=()=>{c.clearRect(0,0,w,h);c.fillStyle='white';stars.forEach(st=>{st.x+=st.z;if(st.x>w){st.x=0;st.y=Math.random()*h}c.globalAlpha=st.s/2;c.fillRect(st.x,st.y,st.s,st.s)});requestAnimationFrame(step)};
-      addEventListener('resize',init);init();step();
+      const canvas = document.getElementById('starfield');
+      const c = canvas.getContext('2d');
+      let w, h, stars;
+      const count = 140;
+      const init = () => {
+        w = canvas.width = innerWidth;
+        h = canvas.height = innerHeight;
+        stars = new Array(count).fill(0).map(()=>({
+          x: Math.random()*w, y: Math.random()*h, z: Math.random()*1+0.2, s: Math.random()*1.6+0.4
+        }));
+      };
+      const step = () => {
+        c.clearRect(0,0,w,h);
+        c.fillStyle='white';
+        stars.forEach(st=>{
+          st.x += (st.z);
+          if(st.x > w) { st.x=0; st.y=Math.random()*h; }
+          c.globalAlpha = st.s/2;
+          c.fillRect(st.x, st.y, st.s, st.s);
+        });
+        requestAnimationFrame(step);
+      };
+      addEventListener('resize', init);
+      init(); step();
     })();
 
-    function Nav(){
-      return (
-        <View style={[styles.nav]}>
-          <View style={[styles.container, styles.navRow]}>
-            <Text style={styles.small}>Pavlo — AI Integrations & Apps</Text>
-            <View style={styles.navLinks}>
-              <Pressable onPress={()=>document.getElementById('cases').scrollIntoView({behavior:'smooth'})}><Text style={styles.chip}>Cases</Text></Pressable>
-              <Pressable onPress={()=>document.getElementById('about').scrollIntoView({behavior:'smooth'})}><Text style={styles.chip}>About</Text></Pressable>
-              <Pressable onPress={()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'})}><Text style={styles.chip}>Contact</Text></Pressable>
-              <Pressable onPress={()=>toggleAudio()}><Text style={styles.chip}>Phonk ♫</Text></Pressable>
-              <Pressable onPress={()=>toggleTheme()}><Text style={styles.chip}>VHS / Clean</Text></Pressable>
-            </View>
-          </View>
-        </View>
-      );
-    }
+    document.addEventListener('pointermove', (e)=>{
+      document.documentElement.style.setProperty('--mx', e.clientX+'px');
+      document.documentElement.style.setProperty('--my', e.clientY+'px');
+    }, {passive:true});
 
-    function Hero(){
-      return (
-        <View style={[styles.container, styles.heroRow]} id="about">
-          <View style={styles.panel}>
-            <Text style={styles.title}>Dark‑Fantasy Phonk / VHS Portfolio</Text>
-            <Text style={styles.subtitle}>I design and ship AI automations and apps: n8n/Zapier agents, Telegram bots, finance & health products, and Raspberry Pi DevOps. I prefer fast MVPs that actually work.</Text>
-            <View style={styles.tagsRow}>
-              {["n8n","Zapier","OpenAI","Supabase","FastAPI","iOS HealthKit","Raspberry Pi"].map(t=>(<Text key={t} style={styles.tag}>{t}</Text>))}
-            </View>
-            <View style={styles.btnRow}>
-              <Pressable onPress={()=>document.getElementById('gallery').scrollIntoView({behavior:'smooth'})}><Text style={styles.btn}>See Demos</Text></Pressable>
-              <Pressable onPress={()=>window.open(SOCIALS.instagram,'_blank')}><Text style={styles.btnSecondary}>Instagram</Text></Pressable>
-            </View>
-          </View>
-          <View style={styles.panel}>
-            <Text style={styles.h2}>What I Do</Text>
-            <View style={{rowGap:8}}>
-              <View style={{borderWidth:1,borderColor:'rgba(255,255,255,.12)',borderRadius:10,padding:12,marginBottom:8}}>
-                <Text style={{fontWeight:'700'}}>AI Agents & Automations</Text>
-                <Text style={styles.small}>n8n super‑agents, memory, semantic search, Slack/Telegram interfaces, robust logging.</Text>
-              </View>
-              <View style={{borderWidth:1,borderColor:'rgba(255,255,255,.12)',borderRadius:10,padding:12,marginBottom:8}}>
-                <Text style={{fontWeight:'700'}}>Finance & Health Apps</Text>
-                <Text style={styles.small}>WealthifAI & HealthifAI UIs, receipt OCR, budgeting, goals, HealthKit insights, streaks.</Text>
-              </View>
-              <View style={{borderWidth:1,borderColor:'rgba(255,255,255,.12)',borderRadius:10,padding:12,marginBottom:8}}>
-                <Text style={{fontWeight:'700'}}>Backend & DevOps</Text>
-                <Text style={styles.small}>FastAPI/Flask on Supabase/Postgres, Docker deployments, Raspberry Pi monitoring.</Text>
-              </View>
-              <View style={{borderWidth:1,borderColor:'rgba(255,255,255,.12)',borderRadius:10,padding:12}}>
-                <Text style={{fontWeight:'700'}}>Creative Media & Bots</Text>
-                <Text style={styles.small}>Telegram bots for status, content sorting to Notion, Insta/TikTok pipelines, dark‑fantasy visuals.</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      );
-    }
+    function loadLottie(el, url){ try{ if(!window.lottie || !el) return; window.lottie.loadAnimation({ container: el, renderer: 'svg', loop: true, autoplay: true, path: url }); }catch(e){} }
+    loadLottie(document.getElementById('lottie1'), LOTTIES[0]);
+    loadLottie(document.getElementById('lottie2'), LOTTIES[1]);
+    loadLottie(document.getElementById('lottie3'), LOTTIES[2]);
+    loadLottie(document.getElementById('lottie4'), LOTTIES[3]);
 
-    function Gallery(){
+    (function gallery(){
+      const frames = $$('.frame');
+      const onScroll = ()=>{
+        const rect = $('.gallery').getBoundingClientRect();
+        const h = rect.height;
+        const top = rect.top;
+        const progress = Math.min(1, Math.max(0, (0 - top) / (h * (frames.length-1)) ));
+        const index = Math.round(progress * (frames.length-1));
+        frames.forEach((f,i)=> f.classList.toggle('visible', i === index));
+      };
+      document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    })();
+
+    function CaseCard({item, onOpen}){
       React.useEffect(()=>{
-        GALLERY.forEach((g)=>{
-          const el = document.getElementById(g.id);
-          if(el && g.lottie && window.lottie){
-            window.lottie.loadAnimation({ container: el, renderer:'svg', loop:true, autoplay:true, path:g.lottie });
-          }
-        });
-      },[]);
+        const el = document.getElementById('case-'+item.id);
+        if(!el) return;
+        if(window.motion){ motion.animate(el, { opacity:[0,1], transform:['translateY(10px)','none'] }, { duration:.6, easing:'ease-out', delay: Math.random()*0.2 }); }
+        const onMove = (e)=>{
+          const r = el.getBoundingClientRect();
+          const x = (e.clientX - r.left)/r.width - .5;
+          const y = (e.clientY - r.top)/r.height - .5;
+          el.style.transform = `perspective(800px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`;
+        };
+        const reset = ()=> el.style.transform='perspective(800px) rotateY(0) rotateX(0)';
+        el.addEventListener('pointermove', onMove); el.addEventListener('pointerleave', reset);
+        return ()=>{ el.removeEventListener('pointermove', onMove); el.removeEventListener('pointerleave', reset); };
+      }, []);
       return (
-        <View style={[styles.container]} id="gallery">
-          <Text style={styles.h2}>Lore Gallery — Scroll to Explore</Text>
-          <View style={styles.galleryWrap}>
-            <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false}>
-              {GALLERY.map(g => (
-                <View key={g.id} style={[styles.galleryItem,{width:window.innerWidth-32}]}>
-                  <View id={g.id} style={{width:'100%',height:'100%'}} />
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-        </View>
+        <div id={'case-'+item.id} className="case">
+          <div className="thumb">✦</div>
+          <div className="body">
+            <h3 style={{margin:'0 0 4px 0'}}>{item.title}</h3>
+            <div className="muted">{item.blurb}</div>
+            <div style={{display:'flex', gap:'6px', flexWrap:'wrap', marginTop:8}}>
+              {item.tags.map(t=> <span key={t} className="tag">{t}</span>)}
+            </div>
+            <div className="actions">
+              <button className="btn" onClick={()=>onOpen(item)}>View</button>
+              {item.liveDemo ? <a className="btn secondary" href={item.liveDemo} target="_blank" rel="noreferrer">Open demo</a> : null}
+              {item.repo ? <a className="btn secondary" href={item.repo} target="_blank" rel="noreferrer">Code</a> : null}
+            </div>
+          </div>
+        </div>
       );
     }
-
-    function Cases(){
-      const [open, setOpen] = React.useState(null);
+    function Modal({item, onClose}){
+      if(!item) return null;
       return (
-        <View style={[styles.container]} id="cases">
-          <Text style={styles.h2}>Cases</Text>
-          <View style={styles.casesGrid}>
-            {CASES.map(c => (
-              <View key={c.id} style={styles.card}>
-                <View style={styles.thumb}><Text style={{fontSize:40}}>✦</Text></View>
-                <View style={styles.body}>
-                  <Text style={{fontWeight:'700'}}>{c.title}</Text>
-                  <Text style={styles.small}>{c.desc}</Text>
-                  <View style={{flexDirection:'row',flexWrap:'wrap',gap:6,marginTop:6}}>
-                    {c.tags.map(t => <Text key={t} style={styles.tag}>{t}</Text>)}
-                  </View>
-                  <View style={{flexDirection:'row',gap:8,marginTop:8,flexWrap:'wrap'}}>
-                    <Pressable onPress={()=>setOpen(c)}><Text style={styles.btn}>View</Text></Pressable>
-                    {c.repo ? <Pressable onPress={()=>window.open(c.repo,'_blank')}><Text style={styles.btnSecondary}>Code</Text></Pressable> : null}
-                  </View>
-                </View>
-              </View>
-            ))}
-          </View>
-
-          {open && (
-            <View style={[styles.modalWrap]}>
-              <View style={{position:'absolute',inset:0,backgroundColor:'rgba(0,0,0,.6)'}} onClick={()=>setOpen(null)} />
-              <View style={styles.modalCard}>
-                <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-                  <Text style={{fontWeight:'800'}}>{open.title}</Text>
-                  <Pressable onPress={()=>setOpen(null)}><Text style={styles.btnSecondary}>Close</Text></Pressable>
-                </View>
-                <View style={{marginTop:8}}>
-                  <Text style={styles.small}>{open.desc}</Text>
-                </View>
-                <View style={{marginTop:10}}>
-                  <iframe src={open.demo} title="Demo" style="width:100%;height:420px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#000"></iframe>
-                </View>
-                <View style={{flexDirection:'row',gap:8,marginTop:10}}>
-                  <Pressable onPress={()=>window.open(open.demo,'_blank')}><Text style={styles.btn}>Open demo</Text></Pressable>
-                  {open.repo ? <Pressable onPress={()=>window.open(open.repo,'_blank')}><Text style={styles.btnSecondary}>Code</Text></Pressable> : null}
-                </View>
-              </View>
-            </View>
-          )}
-        </View>
+        <div className="modal open">
+          <div className="backdrop" onClick={onClose}></div>
+          <div className="dialog">
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+              <h3>{item.title}</h3>
+              <button className="btn secondary" onClick={onClose}>Close</button>
+            </div>
+            <div style={{display:'grid', gridTemplateColumns:'1.1fr .9fr', gap:'16px'}}>
+              <div>
+                <p className="muted"><strong>Impact:</strong> {item.impact}</p>
+                <p className="muted"><strong>Stack:</strong> {item.stack}</p>
+                <p className="muted">{item.blurb}</p>
+                <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                  {item.liveDemo ? <a className="btn" href={item.liveDemo} target="_blank" rel="noreferrer">Open demo in new tab</a> : <span className="small muted">Add a <code>liveDemo</code> URL to embed here (if allowed by iframes).</span>}
+                  {item.repo ? <a className="btn secondary" href={item.repo} target="_blank" rel="noreferrer">Code</a> : null}
+                </div>
+              </div>
+              <div>
+                {item.liveDemo
+                  ? <iframe className="demo" src={item.liveDemo} loading="lazy"></iframe>
+                  : <div className="card muted">No live demo yet. Set <code>item.liveDemo</code> to an HTTPS URL.</div>}
+              </div>
+            </div>
+          </div>
+        </div>
       );
     }
-
-    function Contact(){
-      const [name,setName]=React.useState(""),[email,setEmail]=React.useState(""),[message,setMessage]=React.useState("");
-      async function submit(){
-        if(!FORMSPREE_ID){
-          toast("Set your Formspree ID in the config at the top of index.html");
-          return;
-        }
-        try{
-          const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-            method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
-            body: JSON.stringify({name,email,message})
-          });
-          if(res.ok){ toast("Message sent!"); setName(""); setEmail(""); setMessage(""); }
-          else { toast("Formspree error: check ID"); }
-        }catch(e){ toast("Network error"); }
-      }
-      return (
-        <View style={[styles.container]} id="contact">
-          <Text style={styles.h2}>Contact</Text>
-          <View style={styles.contactRow}>
-            <View style={[styles.panel,{flexBasis:480,flexGrow:1}]}>
-              <TextInput value={name} onChangeText={setName} placeholder="Your name" placeholderTextColor="#b6b6c0" style={styles.input}/>
-              <TextInput value={email} onChangeText={setEmail} placeholder="Email" placeholderTextColor="#b6b6c0" style={styles.input} keyboardType="email-address" />
-              <TextInput value={message} onChangeText={setMessage} placeholder="Tell me about your project..." placeholderTextColor="#b6b6c0" multiline numberOfLines={5} style={[styles.input,{height:120}]}/>
-              <View style={{flexDirection:'row',gap:8,flexWrap:'wrap'}}>
-                <Pressable onPress={submit}><Text style={styles.btn}>Send</Text></Pressable>
-                <Pressable onPress={()=>window.open(`https://t.me/${SOCIALS.telegram}`,'_blank')}><Text style={styles.btnSecondary}>Open Telegram Chat</Text></Pressable>
-              </View>
-              <Text style={[styles.small,{marginTop:6}]}>Email: <a href={"mailto:"+SOCIALS.email}>{SOCIALS.email}</a> · Telegram: <a href={"https://t.me/"+SOCIALS.telegram} target="_blank">@{SOCIALS.telegram}</a> · Instagram: <a href={SOCIALS.instagram} target="_blank">@rork_paul</a> · LinkedIn: <a href={SOCIALS.linkedin} target="_blank">/in/rork</a> · Upwork: <a href={SOCIALS.upwork} target="_blank">Hire me</a></Text>
-            </View>
-            <View style={[styles.panel,{flexBasis:320,flexGrow:1}]}>
-              <Text style={{fontWeight:'700'}}>Telegram Webhook (optional)</Text>
-              <Text style={styles.small}>Deploy a Cloudflare Worker or n8n webhook to relay form messages to your Telegram bot without exposing tokens in the browser.</Text>
-            </View>
-          </View>
-        </View>
-      );
-    }
-
-    function Footer(){
-      return (
-        <View style={[styles.container, styles.footer]}>
-          <View style={{borderWidth:1,borderColor:'rgba(255,255,255,.16)',borderRadius:12,padding:12,flexDirection:'row',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap',rowGap:8}}>
-            <Text style={styles.small}>© {new Date().getFullYear()} Pavlo Tsyhanash — Built with React Native Web · Dark‑Fantasy Phonk / VHS</Text>
-            <View style={{flexDirection:'row',gap:8}}>
-              <Pressable onPress={()=>window.scrollTo({top:0,behavior:'smooth'})}><Text style={styles.btnSecondary}>Top</Text></Pressable>
-              <Pressable onPress={()=>window.open('mailto:'+SOCIALS.email)}><Text style={styles.btnSecondary}>Email</Text></Pressable>
-            </View>
-          </View>
-        </View>
-      );
-    }
-
     function App(){
-      return (
-        <ScrollView>
-          <Nav/>
-          <Hero/>
-          <Gallery/>
-          <Cases/>
-          <Contact/>
-          <Footer/>
-        </ScrollView>
-      );
+      const [modalItem, setModalItem] = React.useState(null);
+      return (<React.Fragment><div className="cases">{CASES.map(c=> <CaseCard key={c.id} item={c} onOpen={setModalItem} />)}</div><Modal item={modalItem} onClose={()=>setModalItem(null)} /></React.Fragment>);
     }
+    ReactDOM.createRoot(document.getElementById('casesGrid')).render(<App />);
 
-    // Theme toggle + audio
-    let _audio; let _playing=false;
-    function toggleAudio(){
-      if(!_audio){ _audio = new Audio('phonk.mp3'); _audio.loop=true; _audio.volume=0.15; }
-      if(!_playing){ _audio.play().catch(()=>toast('Drop a phonk.mp3 next to index.html to enable music.')); _playing=true; } else { _audio.pause(); _playing=false; }
-    }
-    function toggleTheme(){
-      const dark = document.body.dataset.theme !== 'clean';
-      document.body.dataset.theme = dark ? 'clean':'vhs';
-      document.body.style.background = dark ? '#0a0a0f' : 'radial-gradient(1200px 800px at 10% 10%, #0b0714 0%, #05030a 50%) fixed';
-    }
+    (function palette(){
+      const map = [
+        {k:'Go: Cases', a:()=>location.hash='#cases'},
+        {k:'Go: Gallery', a:()=>location.hash='#gallery'},
+        {k:'Go: About', a:()=>location.hash='#about'},
+        {k:'Go: Contact', a:()=>location.hash='#contact'},
+        {k:'Open: Instagram', a:()=>window.open('https://www.instagram.com/rork_paul','_blank')},
+        {k:'Theme: Toggle', a:()=>document.getElementById('themeToggle').click()},
+        {k:'Audio: Toggle Phonk', a:()=>document.getElementById('audioToggle').click()},
+      ];
+      const modal = document.createElement('div'); modal.className='modal'; modal.innerHTML = `
+        <div class="backdrop"></div>
+        <div class="dialog">
+          <input id="paletteInput" placeholder="Type a command…" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border); background:var(--surface); color:var(--fg); outline:none">
+          <div id="paletteList" class="small" style="margin-top:10px"></div>
+        </div>`;
+      document.body.appendChild(modal);
+      const open = ()=>{ modal.classList.add('open'); input.value=''; render(''); setTimeout(()=>input.focus(), 10); };
+      const close = ()=> modal.classList.remove('open');
+      const input = modal.querySelector('#paletteInput');
+      const list = modal.querySelector('#paletteList');
+      function render(q){ const ql = (q||'').toLowerCase(); const filtered = map.filter(m=>m.k.toLowerCase().includes(ql));
+        list.innerHTML = filtered.map((m,i)=>`<div data-i="${i}" style="padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,.03); margin:.25rem 0; cursor:pointer">${m.k}</div>`).join(''); }
+      input.addEventListener('input', ()=>render(input.value));
+      list.addEventListener('click', (e)=>{ const d=e.target.closest('[data-i]'); if(!d) return; const i=[...list.children].indexOf(d);
+        const item = map.filter(m=>m.k.toLowerCase().includes(input.value.toLowerCase()))[i]; if(item){ item.a(); close(); }});
+      modal.querySelector('.backdrop').addEventListener('click', close);
+      document.getElementById('paletteBtn')?.addEventListener('click', open);
+      document.addEventListener('keydown', (e)=>{ const mod = e.ctrlKey || e.metaKey; if(mod && e.key.toLowerCase()==='k'){ e.preventDefault(); open(); } if(e.key==='Escape') close(); });
+    })();
 
-    AppRegistry.registerComponent('App', () => App);
-    AppRegistry.runApplication('App', { rootTag: document.getElementById('root') });
+    document.getElementById('themeToggle')?.addEventListener('click', ()=>{
+      const clean = document.body.dataset.theme !== 'clean';
+      document.body.dataset.theme = clean ? 'clean':'vhs';
+      document.body.style.background = clean ? '#0a0a0f' : 'radial-gradient(1200px 800px at 8% 12%, #0b0714 0%, var(--bg) 55%) fixed';
+      document.body.classList.toggle('crt', !clean);
+      document.body.classList.toggle('grain', !clean);
+    });
+
+    const audio = new Audio('phonk.mp3'); audio.loop=true; audio.volume=0.15;
+    let playing=false; document.getElementById('audioToggle')?.addEventListener('click', async (ev)=>{
+      try{ if(!playing){ await audio.play(); playing=true; ev.target.textContent='Pause ♫'; } else { audio.pause(); playing=false; ev.target.textContent='Phonk ♫'; } }
+      catch{ alert('Drop a phonk.mp3 next to index.html to enable music.'); }
+    });
+
+    document.getElementById('tgChat').href = `https://t.me/${TELEGRAM_USERNAME}`;
+    const form = document.getElementById('contactForm');
+    form?.addEventListener('submit', async (e)=>{
+      if(!TELEGRAM_WEBHOOK) return;
+      try{ const fd = new FormData(form); const payload = Object.fromEntries(fd.entries()); await fetch(TELEGRAM_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)}); toast('Also forwarded to Telegram.'); }catch(err){ toast('Telegram webhook failed.'); }
+    });
+    function toast(msg){ let t = document.getElementById('toast'); if(!t){ t = document.createElement('div'); t.id='toast'; t.className='toast'; document.body.appendChild(t); } t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2600); }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
